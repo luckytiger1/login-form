@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const InputComponent = () => {
+const FormInput = () => {
   const [state, setState] = useState('');
   const multiply = (a: any) => {
     return a * a;
@@ -15,4 +15,4 @@ const InputComponent = () => {
   return <div>{state}</div>;
 };
 
-export default InputComponent;
+export default FormInput;
