@@ -1,8 +1,9 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import InputComponent from './components/Input';
 
-function App() {
+const App = () => {
   return (
     <div className="App">
       <header className="App-header">
@@ -10,6 +11,7 @@ function App() {
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
+        <InputComponent />
         <a
           className="App-link"
           href="https://reactjs.org"
@@ -21,6 +23,6 @@ function App() {
       </header>
     </div>
   );
-}
+};
 
 export default App;
