@@ -1,14 +1,12 @@
 import React from 'react';
-import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import { Link } from 'react-router-dom';
 import FormInput from '../FormInput/FormInput';
 import useStyles from '../../customStyle';
+import FormTitle from '../FormTitle/FormTitle';
 
 const SignUp = ({ fields, handleFieldsChange }: any) => {
   const classes = useStyles(3)();
@@ -17,12 +15,7 @@ const SignUp = ({ fields, handleFieldsChange }: any) => {
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Sign up
-        </Typography>
+        <FormTitle classId={classes.avatar} title="Sign in" />
         <form className={classes.form} noValidate>
           <Grid container spacing={2}>
             <FormInput
