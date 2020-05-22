@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
@@ -7,7 +8,9 @@ import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
 ReactDOM.render(
   <React.StrictMode>
     <ErrorBoundary>
-      <App />
+      <Router>
+        <App />
+      </Router>
     </ErrorBoundary>
   </React.StrictMode>,
   document.getElementById('root'),
