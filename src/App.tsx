@@ -5,7 +5,7 @@ import { createStructuredSelector } from 'reselect';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import SignInContainer from './components/SignIn/SignInContainer';
 import SignUpContainer from './components/SignUp/SignUpContainer';
-import ProfilePage from './components/ProfilePage/ProfilePage';
+import ProfilePageContainer from './components/ProfilePage/ProfilePageContainer';
 import { selectCurrentUser } from './redux/selectors/users.selector';
 
 const App = ({ currentUser }: any) => {
@@ -13,7 +13,6 @@ const App = ({ currentUser }: any) => {
     <div className="App">
       <Switch>
         <Redirect exact from="/" to="/signin" />
-        {/* <Route exact path="/signin" component={SignInContainer} /> */}
         <Route
           exact
           path="/signin"
@@ -22,7 +21,7 @@ const App = ({ currentUser }: any) => {
           }
         />
         <Route exact path="/signup" component={SignUpContainer} />
-        <Route exact path="/profile" component={ProfilePage} />
+        <Route exact path="/profile" component={ProfilePageContainer} />
       </Switch>
     </div>
   );

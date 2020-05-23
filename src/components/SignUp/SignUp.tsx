@@ -32,7 +32,7 @@ const SignUp = ({
         <Alert severity="error">Please fill out the form!</Alert>
       </Snackbar>
       <div className={classes.paper}>
-        <FormTitle classId={classes.avatar} title="Sign in" />
+        <FormTitle classId={classes.avatar} title="Sign up" />
         <form className={classes.form} noValidate onSubmit={handleSubmit}>
           <Grid container spacing={2}>
             <FormInput
