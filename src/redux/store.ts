@@ -1,8 +1,9 @@
 import { createStore, applyMiddleware } from 'redux';
 import logger from 'redux-logger';
-// import createSagaMiddleware from 'redux-saga';
+import createSagaMiddleware from 'redux-saga';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import reducer from './reducers/reducers';
+import rootSaga from './sagas/sagas';
 // import thunkMiddleware from 'redux-thunk';
 // import { persistStore } from 'redux-persist';
 // import reducer from './reducers/reducers';
@@ -18,6 +19,7 @@ import reducer from './reducers/reducers';
 //   }
 //   return dispatch(action);
 // };
+const saga = createSagaMiddleware();
 
 const middlewares = [];
 
@@ -27,7 +29,9 @@ if (process.env.NODE_ENV === 'development') {
 
 const store = createStore(
   reducer,
-  composeWithDevTools(applyMiddleware(...middlewares)),
+  composeWithDevTools(applyMiddleware(...middlewares, saga)),
 );
+
+saga.run(rootSaga);
 
 export default store;
