@@ -3,13 +3,14 @@ import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import SaveIcon from '@material-ui/icons/Save';
 import ProfileInput from '../ProfileInput/ProfileInput';
 import useStyles from './styles';
 
-const ProfilePage = ({ currentUser }: any) => {
+const ProfilePage = ({ currentUser, handleSignOut }: any) => {
   console.log(currentUser);
 
   const classes = useStyles();
@@ -29,22 +30,42 @@ const ProfilePage = ({ currentUser }: any) => {
       </div>
       <div className={classes.profileFields}>
         <div className={classes.nameFields}>
-          <ProfileInput id="firstName" value="Daniyar" label="First Name" />
-          <ProfileInput id="lastName" value="Ketebay" label="Last Name" />
+          <ProfileInput
+            id="firstName"
+            value={currentUser.firstName}
+            label="First Name"
+          />
+          <ProfileInput
+            id="lastName"
+            value={currentUser.lastName}
+            label="Last Name"
+          />
         </div>
-        <ProfileInput id="email" value="daniyar.abc@gmail.com" label="Email" />
-        <ProfileInput id="password" value="" label="Password" />
+        <ProfileInput id="email" value={currentUser.email} label="Email" />
+        <ProfileInput id="password" defaultValue="" label="Password" />
         <ProfileInput id="confirmPassword" value="" label="Confirm Password" />
       </div>
-      <Button
-        variant="contained"
-        color="primary"
-        size="large"
-        className={classes.button}
-        startIcon={<SaveIcon />}
-      >
-        Save changes
-      </Button>
+      <div className={classes.buttonsContainer}>
+        <Button
+          variant="contained"
+          color="primary"
+          size="large"
+          className={classes.button}
+          startIcon={<SaveIcon />}
+        >
+          Save changes
+        </Button>
+        <Button
+          variant="contained"
+          color="primary"
+          size="large"
+          className={classes.button}
+          startIcon={<ExitToAppIcon />}
+          onClick={handleSignOut}
+        >
+          Sign out
+        </Button>
+      </div>
     </Container>
   );
 };

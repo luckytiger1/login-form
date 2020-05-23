@@ -6,7 +6,9 @@ import {
   SIGN_IN_START,
   SIGN_UP_START,
   SIGN_UP_SUCCESS,
+  SIGN_OUT_START,
 } from '../types/actions';
+import { signOutSuccess, signOutFailure } from '../actions/signOut';
 
 function* getSnapshotFromUserAuth(userAuth: any, additionalData: any) {
   try {
@@ -47,6 +49,15 @@ function* signUp({ payload: { email, password, firstName, lastName } }: any) {
   }
 }
 
+function* signOut() {
+  try {
+    yield auth.signOut();
+    yield put(signOutSuccess());
+  } catch (error) {
+    yield put(signOutFailure(error));
+  }
+}
+
 function* signInAfterSignUp({ payload: { user, additionalData } }: any) {
   try {
     yield getSnapshotFromUserAuth(user, additionalData);
@@ -59,9 +70,9 @@ function* onSignInStart() {
   yield takeLatest(SIGN_IN_START, signInWithEmail);
 }
 
-// function* onSignOutStart() {
-//     yield takeLatest(SIGN_OUT_START,signOut)
-// }
+function* onSignOutStart() {
+  yield takeLatest(SIGN_OUT_START, signOut);
+}
 
 function* onSignUpStart() {
   yield takeLatest(SIGN_UP_START, signUp);
@@ -72,5 +83,10 @@ function* onSignUpSuccess() {
 }
 
 export default function* userSagas() {
-  yield all([call(onSignInStart), call(onSignUpStart), call(onSignUpSuccess)]);
+  yield all([
+    call(onSignInStart),
+    call(onSignUpStart),
+    call(onSignUpSuccess),
+    call(onSignOutStart),
+  ]);
 }

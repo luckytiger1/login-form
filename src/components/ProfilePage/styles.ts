@@ -29,6 +29,10 @@ const useStyles = makeStyles((theme) => ({
   button: {
     margin: theme.spacing(2),
   },
+  buttonsContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
 }));
 
 export default useStyles;

@@ -7,7 +7,7 @@ const ProfileInput = ({ label, value, id }: any) => {
   return (
     <FormControl variant="outlined">
       <InputLabel htmlFor={id}>{label}</InputLabel>
-      <OutlinedInput id={id} value={value} label={label} />
+      <OutlinedInput id={id} defaultValue={value} label={label} />
     </FormControl>
   );
 };

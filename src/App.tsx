@@ -14,14 +14,24 @@ const App = ({ currentUser }: any) => {
       <Switch>
         <Redirect exact from="/" to="/signin" />
         <Route
-          exact
           path="/signin"
           render={() =>
             currentUser ? <Redirect to="/profile" /> : <SignInContainer />
           }
         />
-        <Route exact path="/signup" component={SignUpContainer} />
-        <Route exact path="/profile" component={ProfilePageContainer} />
+        <Route
+          path="/signup"
+          render={() =>
+            currentUser ? <Redirect to="/profile" /> : <SignUpContainer />
+          }
+        />
+        {/* <Route exact path="/profile" component={ProfilePageContainer} /> */}
+        <Route
+          path="/profile"
+          render={() =>
+            currentUser ? <ProfilePageContainer /> : <Redirect to="/signin" />
+          }
+        />
       </Switch>
     </div>
   );
