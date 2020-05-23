@@ -11,10 +11,10 @@ export const signUpStart = (userCreds: any) => {
   };
 };
 
-export const signUpSuccess = ({ user }: any) => {
+export const signUpSuccess = ({ user, additionalData }: any) => {
   return {
     type: SIGN_UP_SUCCESS,
-    payload: { user },
+    payload: { user, additionalData },
   };
 };
 

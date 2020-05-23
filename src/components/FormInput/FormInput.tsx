@@ -10,6 +10,8 @@ const FormInput = ({
   type,
   margin,
   sm,
+  error,
+  helperText,
 }: any) => {
   return (
     <Grid item xs={12} sm={sm}>
@@ -26,6 +28,8 @@ const FormInput = ({
         onChange={handleFieldsChange}
         type={type}
         margin={margin}
+        error={error}
+        helperText={error && helperText}
       />
     </Grid>
   );
