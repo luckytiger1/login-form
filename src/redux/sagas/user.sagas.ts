@@ -10,13 +10,8 @@ import {
 
 function* getSnapshotFromUserAuth(userAuth: any, additionalData: any) {
   try {
-    console.log(additionalData);
-
     const userRef = yield call(createUserProfileDoc, userAuth, additionalData);
     const userSnapshot = yield userRef.get();
-    // console.log(userRef);
-    console.log(userSnapshot);
-
     yield put(
       signInSuccess({
         id: userSnapshot.id,
@@ -30,7 +25,8 @@ function* getSnapshotFromUserAuth(userAuth: any, additionalData: any) {
 
 function* signInWithEmail({ payload: { email, password } }: any) {
   try {
-    const user = auth.signInWithEmailAndPassword(email, password);
+    const { user } = yield auth.signInWithEmailAndPassword(email, password);
+
     yield getSnapshotFromUserAuth(user, null);
   } catch (error) {
     yield put(signInFailure(error));
@@ -40,11 +36,10 @@ function* signInWithEmail({ payload: { email, password } }: any) {
 function* signUp({ payload: { email, password, firstName, lastName } }: any) {
   try {
     const { user } = yield auth.createUserWithEmailAndPassword(email, password);
-    const displayName = `${firstName} ${lastName}`;
     yield put(
       signUpSuccess({
         user,
-        additionalData: { displayName, firstName, lastName },
+        additionalData: { firstName, lastName },
       }),
     );
   } catch (error) {
@@ -60,7 +55,7 @@ function* signInAfterSignUp({ payload: { user, additionalData } }: any) {
   }
 }
 
-function* onEmailSignInStart() {
+function* onSignInStart() {
   yield takeLatest(SIGN_IN_START, signInWithEmail);
 }
 
@@ -77,9 +72,5 @@ function* onSignUpSuccess() {
 }
 
 export default function* userSagas() {
-  yield all([
-    call(onEmailSignInStart),
-    call(onSignUpStart),
-    call(onSignUpSuccess),
-  ]);
+  yield all([call(onSignInStart), call(onSignUpStart), call(onSignUpSuccess)]);
 }

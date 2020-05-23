@@ -18,8 +18,6 @@ firebase.initializeApp(config);
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();
 
-// const provider
-
 export const createUserProfileDoc = async (
   userAuth: any,
   additionalData?: any,
@@ -31,15 +29,11 @@ export const createUserProfileDoc = async (
   const snapShot = await userRef.get();
 
   if (!snapShot.exists) {
-    console.log(userAuth.uid);
-
-    const { displayName, email } = userAuth;
+    const { email } = userAuth;
     const createdAt = new Date();
-    // console.log(additionalData);
 
     try {
       await userRef.set({
-        displayName,
         email,
         createdAt,
         ...additionalData,

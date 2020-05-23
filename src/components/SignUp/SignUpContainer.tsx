@@ -34,7 +34,7 @@ function SignUpContainer({ signUpHandler }: any) {
     );
   };
 
-  const handleSubmit = (event: Event) => {
+  const handleSubmit = (event: React.SyntheticEvent) => {
     event.preventDefault();
     const { firstName, lastName, email, password } = fields;
     if (

@@ -7,16 +7,27 @@ import { Link } from 'react-router-dom';
 import useStyles from '../../customStyle';
 import FormInput from '../FormInput/FormInput';
 import FormTitle from '../FormTitle/FormTitle';
+import AlertMessage from '../AlertMessage/AlertMessage';
 
-const SignIn = ({ loginFields, handleFieldsChange }: any) => {
+const SignIn = ({
+  loginFields,
+  handleFieldsChange,
+  handleSubmit,
+  error,
+}: any) => {
   const classes = useStyles(1)();
 
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
+      <AlertMessage
+        errorConfirmPass={error !== null}
+        message={error?.message}
+        handleClose={() => false}
+      />
       <div className={classes.paper}>
         <FormTitle classId={classes.avatar} title="Sign in" />
-        <form className={classes.form} noValidate>
+        <form className={classes.form} noValidate onSubmit={handleSubmit}>
           <FormInput
             label="Email Address"
             id="email"
