@@ -3,6 +3,11 @@ import { connect } from 'react-redux';
 import SignUp from './SignUp';
 import useFields from '../../hooks/useFieldshook';
 import { signUpStart } from '../../redux/actions/signUp';
+import {
+  validateConfirmPassword,
+  checkEmptyFields,
+  validatePassword,
+} from '../../utils';
 
 function SignUpContainer({ signUpHandler }: any) {
   const [fields, handleFieldsChange] = useFields({
@@ -14,33 +19,13 @@ function SignUpContainer({ signUpHandler }: any) {
   });
   const [errorConfirmPass, setErrorConfirmPass] = useState(false);
 
-  const validateConfirmPassword = () => {
-    const { password, confirmPassword } = fields;
-    return confirmPassword.length > 0 && password !== confirmPassword;
-  };
-
-  const validatePassword = () => {
-    const { password } = fields;
-
-    return password.length < 6 && password.length > 0;
-  };
-
-  const checkEmptyFields = ({ firstName, lastName, email, password }: any) => {
-    return (
-      firstName.trim().length &&
-      lastName.trim().length &&
-      email.trim().length &&
-      password.trim().length
-    );
-  };
-
   const handleSubmit = (event: React.SyntheticEvent) => {
     event.preventDefault();
-    const { firstName, lastName, email, password } = fields;
+    const { firstName, lastName, email, password, confirmPassword } = fields;
     if (
-      validateConfirmPassword() ||
-      !checkEmptyFields(fields) ||
-      validatePassword()
+      validateConfirmPassword(password, confirmPassword) ||
+      !checkEmptyFields(firstName, lastName, email, password) ||
+      validatePassword(password)
     ) {
       setErrorConfirmPass(true);
     } else {

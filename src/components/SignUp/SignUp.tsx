@@ -68,7 +68,7 @@ const SignUp = ({
               type="password"
               fields={fields.password}
               handleFieldsChange={handleFieldsChange}
-              error={validatePassword()}
+              error={validatePassword(fields.password)}
               helperText="Minimum 6 symbols."
             />
             <FormInput
@@ -76,7 +76,10 @@ const SignUp = ({
               id="confirmPassword"
               aComplete="current-password"
               type="password"
-              error={validateConfirmPassword()}
+              error={validateConfirmPassword(
+                fields.password,
+                fields.confirmPassword,
+              )}
               helperText="Please make sure your passwords match."
               fields={fields.confirmPassword}
               handleFieldsChange={handleFieldsChange}

@@ -14,6 +14,8 @@ const SignIn = ({
   handleFieldsChange,
   handleSubmit,
   error,
+  validateEmail,
+  validatePassword,
 }: any) => {
   const classes = useStyles(1)();
 
@@ -36,6 +38,8 @@ const SignIn = ({
             fields={loginFields.email}
             handleFieldsChange={handleFieldsChange}
             margin="normal"
+            error={validateEmail(loginFields.email)}
+            helperText="Please enter a valid email address."
           />
           <FormInput
             label="Password"
@@ -45,6 +49,8 @@ const SignIn = ({
             fields={loginFields.password}
             handleFieldsChange={handleFieldsChange}
             margin="normal"
+            error={validatePassword(loginFields.password)}
+            helperText="Minimum 6 symbols."
           />
           <Button
             type="submit"

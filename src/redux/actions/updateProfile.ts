@@ -1,13 +1,13 @@
 import {
-  UPDATE_EMAIL_ADDRESS,
-  UPDATE_FIRST_NAME,
+  UPDATE_PROFILE,
   UPDATE_PASSWORD,
-  UPDATE_LAST_NAME,
+  UPDATE_FAILURE,
+  UPDATE_SUCCESS,
 } from '../types/actions';
 
-export const updateEmailAddress = (newEmail: string) => ({
-  type: UPDATE_EMAIL_ADDRESS,
-  payload: newEmail,
+export const updateProfile = (newData: object) => ({
+  type: UPDATE_PROFILE,
+  payload: newData,
 });
 
 export const updatePassword = (newPassword: string) => ({
@@ -15,11 +15,10 @@ export const updatePassword = (newPassword: string) => ({
   payload: newPassword,
 });
 
-export const updateFirstName = (newName: string) => ({
-  type: UPDATE_FIRST_NAME,
-  payload: newName,
+export const updateFailure = (error: Error) => ({
+  type: UPDATE_FAILURE,
+  payload: error,
 });
-export const updateLastName = (newLastName: string) => ({
-  type: UPDATE_LAST_NAME,
-  payload: newLastName,
+export const updateSuccess = () => ({
+  type: UPDATE_SUCCESS,
 });

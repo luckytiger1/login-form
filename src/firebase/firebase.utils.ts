@@ -27,9 +27,9 @@ export const createUserProfileDoc = async (
   const userRef = firestore.doc(`users/${userAuth.uid}`);
 
   const snapShot = await userRef.get();
+  const { email } = userAuth;
 
   if (!snapShot.exists) {
-    const { email } = userAuth;
     const createdAt = new Date();
 
     try {
@@ -41,6 +41,12 @@ export const createUserProfileDoc = async (
     } catch (error) {
       console.log('error happened ', error);
     }
+  } else {
+    await snapShot.ref.update({
+      email,
+      firstName: additionalData?.newFirstName,
+      lastName: additionalData?.newLastName,
+    });
   }
   // eslint-disable-next-line consistent-return
   return userRef;

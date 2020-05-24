@@ -1,6 +1,7 @@
-import { call } from 'redux-saga/effects';
+import { call, all } from 'redux-saga/effects';
 import userSagas from './user.sagas';
+import updateProfileSagas from './updateProfile.sagas';
 
 export default function* rootSaga() {
-  yield call(userSagas);
+  yield all([call(userSagas), call(updateProfileSagas)]);
 }

@@ -25,7 +25,6 @@ const App = ({ currentUser }: any) => {
             currentUser ? <Redirect to="/profile" /> : <SignUpContainer />
           }
         />
-        {/* <Route exact path="/profile" component={ProfilePageContainer} /> */}
         <Route
           path="/profile"
           render={() =>

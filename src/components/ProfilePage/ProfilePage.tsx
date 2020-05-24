@@ -10,7 +10,13 @@ import SaveIcon from '@material-ui/icons/Save';
 import ProfileInput from '../ProfileInput/ProfileInput';
 import useStyles from './styles';
 
-const ProfilePage = ({ currentUser, handleSignOut }: any) => {
+const ProfilePage = ({
+  currentUser,
+  handleSignOut,
+  handleFieldsChange,
+  newData,
+  handleSaveSubmit,
+}: any) => {
   console.log(currentUser);
 
   const classes = useStyles();
@@ -31,19 +37,41 @@ const ProfilePage = ({ currentUser, handleSignOut }: any) => {
       <div className={classes.profileFields}>
         <div className={classes.nameFields}>
           <ProfileInput
-            id="firstName"
-            value={currentUser.firstName}
+            id="newFirstName"
+            // defaultValue={currentUser.firstName}
             label="First Name"
+            handleFieldsChange={handleFieldsChange}
+            value={newData.newFirstName}
           />
           <ProfileInput
-            id="lastName"
-            value={currentUser.lastName}
+            id="newLastName"
+            // defaultValue={currentUser.lastName}
             label="Last Name"
+            handleFieldsChange={handleFieldsChange}
+            value={newData.newLastName}
           />
         </div>
-        <ProfileInput id="email" value={currentUser.email} label="Email" />
-        <ProfileInput id="password" defaultValue="" label="Password" />
-        <ProfileInput id="confirmPassword" value="" label="Confirm Password" />
+        <ProfileInput
+          id="newEmail"
+          //   defaultValue={currentUser.email}
+          label="Email"
+          handleFieldsChange={handleFieldsChange}
+          value={newData.newEmail}
+        />
+        <ProfileInput
+          id="newPassword"
+          //   defaultValue=""
+          label="Password"
+          handleFieldsChange={handleFieldsChange}
+          value={newData.newPassword}
+        />
+        <ProfileInput
+          id="newConfirmPassword"
+          //   defaultValue=""
+          label="Confirm Password"
+          handleFieldsChange={handleFieldsChange}
+          value={newData.newConfirmPassword}
+        />
       </div>
       <div className={classes.buttonsContainer}>
         <Button
@@ -52,6 +80,7 @@ const ProfilePage = ({ currentUser, handleSignOut }: any) => {
           size="large"
           className={classes.button}
           startIcon={<SaveIcon />}
+          onClick={handleSaveSubmit}
         >
           Save changes
         </Button>

@@ -5,6 +5,7 @@ import SignIn from './SignIn';
 import useFields from '../../hooks/useFieldshook';
 import { signInStart } from '../../redux/actions/signIn';
 import { selectError } from '../../redux/selectors/users.selector';
+import { validateEmail, validatePassword } from '../../utils';
 
 const SignInContainer = ({ signInStartHandle, error }: any) => {
   const [loginFields, handleFieldsChange] = useFields({
@@ -13,9 +14,11 @@ const SignInContainer = ({ signInStartHandle, error }: any) => {
   });
 
   const handleSubmit = (event: React.SyntheticEvent) => {
+    const { email, password } = loginFields;
     event.preventDefault();
-
-    signInStartHandle(loginFields);
+    if (validateEmail(email) && !validatePassword(password)) {
+      signInStartHandle(loginFields);
+    }
   };
 
   return (
@@ -24,6 +27,8 @@ const SignInContainer = ({ signInStartHandle, error }: any) => {
       handleFieldsChange={handleFieldsChange}
       handleSubmit={handleSubmit}
       error={error}
+      validateEmail={validateEmail}
+      validatePassword={validatePassword}
     />
   );
 };

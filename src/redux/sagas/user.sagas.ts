@@ -10,10 +10,12 @@ import {
 } from '../types/actions';
 import { signOutSuccess, signOutFailure } from '../actions/signOut';
 
-function* getSnapshotFromUserAuth(userAuth: any, additionalData: any) {
+export function* getSnapshotFromUserAuth(userAuth: any, additionalData: any) {
   try {
     const userRef = yield call(createUserProfileDoc, userAuth, additionalData);
     const userSnapshot = yield userRef.get();
+    console.log(userSnapshot.data());
+
     yield put(
       signInSuccess({
         id: userSnapshot.id,
@@ -28,6 +30,8 @@ function* getSnapshotFromUserAuth(userAuth: any, additionalData: any) {
 function* signInWithEmail({ payload: { email, password } }: any) {
   try {
     const { user } = yield auth.signInWithEmailAndPassword(email, password);
+
+    console.log(user);
 
     yield getSnapshotFromUserAuth(user, null);
   } catch (error) {
