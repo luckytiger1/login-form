@@ -3,19 +3,27 @@ import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
+import VpnKeyIcon from '@material-ui/icons/VpnKey';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import SaveIcon from '@material-ui/icons/Save';
 import ProfileInput from '../ProfileInput/ProfileInput';
 import useStyles from './styles';
+import {
+  validateEmail,
+  validateName,
+  validatePassword,
+  validateConfirmPassword,
+} from '../../utils';
 
 const ProfilePage = ({
   currentUser,
   handleSignOut,
   handleFieldsChange,
   newData,
-  handleSaveSubmit,
+  handleOtherInfoChange,
+  handlePasswordUpdate,
 }: any) => {
   console.log(currentUser);
 
@@ -38,39 +46,65 @@ const ProfilePage = ({
         <div className={classes.nameFields}>
           <ProfileInput
             id="newFirstName"
-            // defaultValue={currentUser.firstName}
             label="First Name"
             handleFieldsChange={handleFieldsChange}
             value={newData.newFirstName}
+            error={
+              validateName(newData.newFirstName) &&
+              newData.newFirstName.length > 0
+            }
+            helperText="Please enter a valid first name."
           />
           <ProfileInput
             id="newLastName"
-            // defaultValue={currentUser.lastName}
             label="Last Name"
             handleFieldsChange={handleFieldsChange}
             value={newData.newLastName}
+            error={
+              validateName(newData.newLastName) &&
+              newData.newLastName.length > 0
+            }
+            helperText="Please enter a valid last name."
           />
         </div>
         <ProfileInput
           id="newEmail"
-          //   defaultValue={currentUser.email}
           label="Email"
           handleFieldsChange={handleFieldsChange}
           value={newData.newEmail}
+          error={validateEmail(newData.newEmail) && newData.newEmail.length > 0}
+          helperText="Please enter a valid email address."
         />
         <ProfileInput
           id="newPassword"
-          //   defaultValue=""
           label="Password"
           handleFieldsChange={handleFieldsChange}
           value={newData.newPassword}
+          error={
+            newData.newPassword.length > 0
+              ? validatePassword(newData.newPassword) &&
+                newData.newPassword.length > 0
+              : null
+          }
+          helperText="Minimum six characters, at least one letter and one number."
+          type="password"
         />
         <ProfileInput
           id="newConfirmPassword"
-          //   defaultValue=""
           label="Confirm Password"
           handleFieldsChange={handleFieldsChange}
           value={newData.newConfirmPassword}
+          error={
+            newData.newPassword.length > 0 &&
+            newData.newConfirmPassword.length > 0
+              ? validateConfirmPassword(
+                  newData.newPassword,
+                  newData.newConfirmPassword,
+                )
+              : null
+          }
+          helperText="Please make sure your passwords match."
+          type="password"
         />
       </div>
       <div className={classes.buttonsContainer}>
@@ -80,13 +114,23 @@ const ProfilePage = ({
           size="large"
           className={classes.button}
           startIcon={<SaveIcon />}
-          onClick={handleSaveSubmit}
+          onClick={handleOtherInfoChange}
         >
-          Save changes
+          Update other info
         </Button>
         <Button
           variant="contained"
           color="primary"
+          size="large"
+          className={classes.button}
+          startIcon={<VpnKeyIcon />}
+          onClick={handlePasswordUpdate}
+        >
+          Update Password
+        </Button>
+        <Button
+          variant="contained"
+          color="secondary"
           size="large"
           className={classes.button}
           startIcon={<ExitToAppIcon />}

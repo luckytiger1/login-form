@@ -1,3 +1,8 @@
+export const validateName = (name: string) => {
+  const re = /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u;
+  return !re.test(name);
+};
+
 export const validateEmail = (email: string) => {
   const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return !re.test(String(email).toLowerCase());
@@ -11,7 +16,8 @@ export const validateConfirmPassword = (
 };
 
 export const validatePassword = (password: string) => {
-  return password.length < 6 && password.length > 0;
+  const re = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
+  return !re.test(password);
 };
 
 export const checkEmptyFields = (
@@ -20,7 +26,7 @@ export const checkEmptyFields = (
   email?: string,
   password?: string,
 ) => {
-  return (
+  return !!(
     firstName?.trim().length &&
     lastName?.trim().length &&
     email?.trim().length &&

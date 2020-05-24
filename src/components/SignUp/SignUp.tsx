@@ -9,26 +9,26 @@ import { Link } from 'react-router-dom';
 import FormInput from '../FormInput/FormInput';
 import useStyles from '../../customStyle';
 import FormTitle from '../FormTitle/FormTitle';
+import {
+  validateConfirmPassword,
+  validatePassword,
+  validateEmail,
+  validateName,
+} from '../../utils';
 
 const SignUp = ({
   fields,
   handleFieldsChange,
   handleSubmit,
-  errorConfirmPass,
+  errorForm,
   handleClose,
-  validateConfirmPassword,
-  validatePassword,
 }: any) => {
   const classes = useStyles(3)();
 
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
-      <Snackbar
-        open={errorConfirmPass}
-        autoHideDuration={1500}
-        onClose={handleClose}
-      >
+      <Snackbar open={errorForm} autoHideDuration={1500} onClose={handleClose}>
         <Alert severity="error">Please fill out the form!</Alert>
       </Snackbar>
       <div className={classes.paper}>
@@ -43,6 +43,10 @@ const SignUp = ({
               fields={fields.firstName}
               handleFieldsChange={handleFieldsChange}
               sm={6}
+              error={
+                validateName(fields.firstName) && fields.firstName.length > 0
+              }
+              helperText="Please enter a valid first name."
             />
             <FormInput
               label="Last Name"
@@ -52,6 +56,10 @@ const SignUp = ({
               fields={fields.lastName}
               handleFieldsChange={handleFieldsChange}
               sm={6}
+              error={
+                validateName(fields.lastName) && fields.lastName.length > 0
+              }
+              helperText="Please enter a valid last name."
             />
             <FormInput
               label="Email Address"
@@ -60,6 +68,8 @@ const SignUp = ({
               type="text"
               fields={fields.email}
               handleFieldsChange={handleFieldsChange}
+              error={validateEmail(fields.email) && fields.email.length > 0}
+              helperText="Please enter a valid email address."
             />
             <FormInput
               label="Password"
@@ -68,8 +78,10 @@ const SignUp = ({
               type="password"
               fields={fields.password}
               handleFieldsChange={handleFieldsChange}
-              error={validatePassword(fields.password)}
-              helperText="Minimum 6 symbols."
+              error={
+                validatePassword(fields.password) && fields.password.length > 0
+              }
+              helperText="Minimum six characters, at least one letter and one number."
             />
             <FormInput
               label="Confirm Password"

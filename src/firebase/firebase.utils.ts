@@ -41,13 +41,35 @@ export const createUserProfileDoc = async (
     } catch (error) {
       console.log('error happened ', error);
     }
-  } else {
+  }
+  // eslint-disable-next-line consistent-return
+  return userRef;
+};
+
+export const updateUserProfileDoc = async (
+  userAuth: any,
+  additionalData?: any,
+) => {
+  if (!userAuth) return;
+
+  const userRef = firestore.doc(`users/${userAuth.uid}`);
+
+  const snapShot = await userRef.get();
+  const { email } = userAuth;
+
+  const updatedAt = new Date();
+  try {
     await snapShot.ref.update({
       email,
+      updatedAt,
       firstName: additionalData?.newFirstName,
       lastName: additionalData?.newLastName,
+      password: additionalData?.newPass,
     });
+  } catch (error) {
+    console.log('error happened ', error);
   }
+
   // eslint-disable-next-line consistent-return
   return userRef;
 };

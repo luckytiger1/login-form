@@ -7,13 +7,22 @@ import ProfilePage from './ProfilePage';
 import NoAccessPage from '../NoAccessPage/NoAccessPage';
 import { signOutStart } from '../../redux/actions/signOut';
 import useFields from '../../hooks/useFieldshook';
-import { updateProfile } from '../../redux/actions/updateProfile';
-import { checkEmptyFields } from '../../utils';
+import {
+  updateProfile,
+  updatePassword,
+} from '../../redux/actions/updateProfile';
+import {
+  validateEmail,
+  validateName,
+  validateConfirmPassword,
+  validatePassword,
+} from '../../utils';
 
 const ProfilePageContainer = ({
   currentUser,
   signOutHandle,
   handleProfileChange,
+  handlePasswordChange,
 }: any) => {
   const [newData, handleFieldsChange] = useFields({
     newFirstName: currentUser.firstName,
@@ -30,19 +39,33 @@ const ProfilePageContainer = ({
     history.push('/signin');
   };
 
-  const handleSaveSubmit = () => {
+  const handleOtherInfoChange = () => {
     const { newEmail, newFirstName, newLastName } = newData;
     if (
       (currentUser.email !== newEmail ||
         currentUser.firstName !== newFirstName ||
         currentUser.lastName !== newLastName) &&
-      checkEmptyFields(newFirstName, newLastName, newEmail)
+      newFirstName.trim().length &&
+      newLastName.trim().length &&
+      newEmail.trim().length &&
+      !validateEmail(newEmail) &&
+      !validateName(newFirstName) &&
+      !validateName(newLastName)
     ) {
       handleProfileChange(newData);
     }
-    // if (currentUser.firstName !== newFirstName) {
-    //   handleFirstNameChange(newFirstName);
-    // }
+  };
+
+  const handlePasswordUpdate = () => {
+    const { newPassword, newConfirmPassword } = newData;
+    if (newPassword.length > 0) {
+      if (
+        !validateConfirmPassword(newPassword, newConfirmPassword) &&
+        !validatePassword(newPassword)
+      ) {
+        handlePasswordChange(newData);
+      }
+    }
   };
 
   return currentUser ? (
@@ -51,7 +74,8 @@ const ProfilePageContainer = ({
       handleSignOut={handleSignOut}
       handleFieldsChange={handleFieldsChange}
       newData={newData}
-      handleSaveSubmit={handleSaveSubmit}
+      handlePasswordUpdate={handlePasswordUpdate}
+      handleOtherInfoChange={handleOtherInfoChange}
     />
   ) : (
     <NoAccessPage />
@@ -65,6 +89,7 @@ const mapStateToProps = createStructuredSelector({
 const mapDispatchToProps = {
   signOutHandle: signOutStart,
   handleProfileChange: updateProfile,
+  handlePasswordChange: updatePassword,
 };
 
 export default connect(

@@ -8,14 +8,14 @@ import useStyles from '../../customStyle';
 import FormInput from '../FormInput/FormInput';
 import FormTitle from '../FormTitle/FormTitle';
 import AlertMessage from '../AlertMessage/AlertMessage';
+import { validatePassword, validateEmail } from '../../utils';
 
 const SignIn = ({
   loginFields,
   handleFieldsChange,
   handleSubmit,
-  error,
-  validateEmail,
-  validatePassword,
+  errorForm,
+  handleClose,
 }: any) => {
   const classes = useStyles(1)();
 
@@ -23,9 +23,9 @@ const SignIn = ({
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <AlertMessage
-        errorConfirmPass={error !== null}
-        message={error?.message}
-        handleClose={() => false}
+        errorConfirmPass={errorForm}
+        message="Please fill out the form!"
+        handleClose={handleClose}
       />
       <div className={classes.paper}>
         <FormTitle classId={classes.avatar} title="Sign in" />
@@ -38,7 +38,9 @@ const SignIn = ({
             fields={loginFields.email}
             handleFieldsChange={handleFieldsChange}
             margin="normal"
-            error={validateEmail(loginFields.email)}
+            error={
+              validateEmail(loginFields.email) && loginFields.email.length > 0
+            }
             helperText="Please enter a valid email address."
           />
           <FormInput
@@ -49,8 +51,11 @@ const SignIn = ({
             fields={loginFields.password}
             handleFieldsChange={handleFieldsChange}
             margin="normal"
-            error={validatePassword(loginFields.password)}
-            helperText="Minimum 6 symbols."
+            error={
+              validatePassword(loginFields.password) &&
+              loginFields.password.length > 0
+            }
+            helperText="Minimum six characters, at least one letter and one number."
           />
           <Button
             type="submit"

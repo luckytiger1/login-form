@@ -10,10 +10,17 @@ import {
 } from '../types/actions';
 import { signOutSuccess, signOutFailure } from '../actions/signOut';
 
-export function* getSnapshotFromUserAuth(userAuth: any, additionalData: any) {
+export function* getSnapshotFromUserAuth(
+  userAuth: any,
+  additionalData: any,
+  func: any,
+) {
   try {
-    const userRef = yield call(createUserProfileDoc, userAuth, additionalData);
+    const userRef = yield call(func, userAuth, additionalData);
+    console.log(userRef);
+
     const userSnapshot = yield userRef.get();
+    console.log(userSnapshot);
     console.log(userSnapshot.data());
 
     yield put(
@@ -33,7 +40,7 @@ function* signInWithEmail({ payload: { email, password } }: any) {
 
     console.log(user);
 
-    yield getSnapshotFromUserAuth(user, null);
+    yield getSnapshotFromUserAuth(user, null, createUserProfileDoc);
   } catch (error) {
     yield put(signInFailure(error));
   }
@@ -45,7 +52,7 @@ function* signUp({ payload: { email, password, firstName, lastName } }: any) {
     yield put(
       signUpSuccess({
         user,
-        additionalData: { firstName, lastName },
+        additionalData: { firstName, lastName, password },
       }),
     );
   } catch (error) {
@@ -64,7 +71,7 @@ function* signOut() {
 
 function* signInAfterSignUp({ payload: { user, additionalData } }: any) {
   try {
-    yield getSnapshotFromUserAuth(user, additionalData);
+    yield getSnapshotFromUserAuth(user, additionalData, createUserProfileDoc);
   } catch (error) {
     yield put(signUpFailure(error));
   }

@@ -17,7 +17,7 @@ function SignUpContainer({ signUpHandler }: any) {
     password: '',
     confirmPassword: '',
   });
-  const [errorConfirmPass, setErrorConfirmPass] = useState(false);
+  const [errorForm, setErrorForm] = useState(false);
 
   const handleSubmit = (event: React.SyntheticEvent) => {
     event.preventDefault();
@@ -27,7 +27,7 @@ function SignUpContainer({ signUpHandler }: any) {
       !checkEmptyFields(firstName, lastName, email, password) ||
       validatePassword(password)
     ) {
-      setErrorConfirmPass(true);
+      setErrorForm(true);
     } else {
       signUpHandler({ firstName, lastName, email, password });
     }
@@ -38,18 +38,16 @@ function SignUpContainer({ signUpHandler }: any) {
       return;
     }
 
-    setErrorConfirmPass(false);
+    setErrorForm(false);
   };
 
   return (
     <SignUp
       fields={fields}
       handleFieldsChange={handleFieldsChange}
-      validateConfirmPassword={validateConfirmPassword}
       handleSubmit={handleSubmit}
       handleClose={handleClose}
-      errorConfirmPass={errorConfirmPass}
-      validatePassword={validatePassword}
+      errorForm={errorForm}
     />
   );
 }

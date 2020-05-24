@@ -1,17 +1,27 @@
 import React from 'react';
-import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
+import TextField from '@material-ui/core/TextField';
 
-const ProfileInput = ({ label, value, id, handleFieldsChange }: any) => {
+const ProfileInput = ({
+  label,
+  value,
+  id,
+  handleFieldsChange,
+  error,
+  helperText,
+  type,
+}: any) => {
   return (
     <FormControl variant="outlined">
-      <InputLabel htmlFor={id}>{label}</InputLabel>
-      <OutlinedInput
+      <TextField
         id={id}
         label={label}
         value={value}
         onChange={handleFieldsChange}
+        error={error}
+        helperText={error && helperText}
+        variant="outlined"
+        type={type}
       />
     </FormControl>
   );
