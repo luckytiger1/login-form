@@ -25,7 +25,6 @@ const SignInContainer: React.FC<SignInContainerProps> = ({
     const { email, password } = loginFields;
     event.preventDefault();
 
-    console.log(loginFields);
     if (!validateEmail(email) && !validatePassword(password)) {
       signInStartHandle(loginFields);
     } else {
