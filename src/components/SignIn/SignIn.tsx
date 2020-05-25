@@ -10,13 +10,21 @@ import FormTitle from '../FormTitle/FormTitle';
 import AlertMessage from '../AlertMessage/AlertMessage';
 import { validatePassword, validateEmail } from '../../utils';
 
-const SignIn = ({
+interface SignInProps {
+  loginFields: any;
+  handleFieldsChange: () => void;
+  handleSubmit: (event: React.SyntheticEvent) => void;
+  errorForm: boolean;
+  handleClose: (event?: React.SyntheticEvent, reason?: string) => void;
+}
+
+const SignIn: React.FC<SignInProps> = ({
   loginFields,
   handleFieldsChange,
   handleSubmit,
   errorForm,
   handleClose,
-}: any) => {
+}) => {
   const classes = useStyles(1)();
 
   return (
@@ -35,7 +43,7 @@ const SignIn = ({
             id="email"
             aComplete="email"
             type="text"
-            fields={loginFields.email}
+            value={loginFields.email}
             handleFieldsChange={handleFieldsChange}
             margin="normal"
             error={
@@ -48,7 +56,7 @@ const SignIn = ({
             id="password"
             aComplete="current-password"
             type="password"
-            fields={loginFields.password}
+            value={loginFields.password}
             handleFieldsChange={handleFieldsChange}
             margin="normal"
             error={

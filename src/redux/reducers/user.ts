@@ -4,14 +4,20 @@ import {
   SIGN_OUT_FAILURE,
   SIGN_IN_FAILURE,
   SIGN_UP_FAILURE,
+  AppActions,
 } from '../types/actions';
 
-const initialState: any = {
+type UserReducerInitialState = {
+  currentUser: null | object;
+  error: null | Error;
+};
+
+const initialState: UserReducerInitialState = {
   currentUser: null,
   error: null,
 };
 
-const userReducer = (state = initialState, action: any): any => {
+const userReducer = (state = initialState, action: AppActions): any => {
   switch (action.type) {
     case SIGN_IN_SUCCESS:
       return {

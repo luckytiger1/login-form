@@ -18,12 +18,19 @@ import {
   validatePassword,
 } from '../../utils';
 
-const ProfilePageContainer = ({
+interface ProfilePageContainerProps {
+  currentUser: any;
+  signOutHandle: () => void;
+  handleProfileChange: (newData: any) => void;
+  handlePasswordChange: (newData: any) => void;
+}
+
+const ProfilePageContainer: React.FC<ProfilePageContainerProps> = ({
   currentUser,
   signOutHandle,
   handleProfileChange,
   handlePasswordChange,
-}: any) => {
+}) => {
   const [newData, handleFieldsChange] = useFields({
     newFirstName: currentUser.firstName,
     newLastName: currentUser.lastName,

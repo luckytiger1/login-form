@@ -3,6 +3,7 @@ import {
   UPDATE_PASSWORD,
   UPDATE_FAILURE,
   UPDATE_SUCCESS,
+  AppActions,
 } from '../types/actions';
 
 export const updateProfile = (newData: object) => ({
@@ -10,15 +11,15 @@ export const updateProfile = (newData: object) => ({
   payload: newData,
 });
 
-export const updatePassword = (newPassword: string) => ({
+export const updatePassword = (newPassword: string): AppActions => ({
   type: UPDATE_PASSWORD,
   payload: newPassword,
 });
 
-export const updateFailure = (error: Error) => ({
+export const updateFailure = (error: Error): AppActions => ({
   type: UPDATE_FAILURE,
   payload: error,
 });
-export const updateSuccess = () => ({
+export const updateSuccess = (): AppActions => ({
   type: UPDATE_SUCCESS,
 });

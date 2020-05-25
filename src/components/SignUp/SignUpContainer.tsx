@@ -9,7 +9,11 @@ import {
   validatePassword,
 } from '../../utils';
 
-function SignUpContainer({ signUpHandler }: any) {
+interface SignUpContainerProps {
+  signUpHandler: (data: any) => void;
+}
+
+const SignUpContainer: React.FC<SignUpContainerProps> = ({ signUpHandler }) => {
   const [fields, handleFieldsChange] = useFields({
     firstName: '',
     lastName: '',
@@ -50,7 +54,7 @@ function SignUpContainer({ signUpHandler }: any) {
       errorForm={errorForm}
     />
   );
-}
+};
 
 const mapDispatchToProps = {
   signUpHandler: signUpStart,

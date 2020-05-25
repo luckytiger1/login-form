@@ -17,14 +17,23 @@ import {
   validateConfirmPassword,
 } from '../../utils';
 
-const ProfilePage = ({
+interface ProfilePageProps {
+  currentUser: any;
+  handleSignOut: () => void;
+  handleFieldsChange: () => void;
+  newData: any;
+  handleOtherInfoChange: () => void;
+  handlePasswordUpdate: () => void;
+}
+
+const ProfilePage: React.FC<ProfilePageProps> = ({
   currentUser,
   handleSignOut,
   handleFieldsChange,
   newData,
   handleOtherInfoChange,
   handlePasswordUpdate,
-}: any) => {
+}) => {
   console.log(currentUser);
 
   const classes = useStyles();

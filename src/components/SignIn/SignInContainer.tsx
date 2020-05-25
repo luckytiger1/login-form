@@ -7,7 +7,13 @@ import { signInStart } from '../../redux/actions/signIn';
 import { selectError } from '../../redux/selectors/users.selector';
 import { validateEmail, validatePassword } from '../../utils';
 
-const SignInContainer = ({ signInStartHandle, error }: any) => {
+interface SignInContainerProps {
+  signInStartHandle: (loginFields: object) => void;
+}
+
+const SignInContainer: React.FC<SignInContainerProps> = ({
+  signInStartHandle,
+}) => {
   const [loginFields, handleFieldsChange] = useFields({
     email: '',
     password: '',
@@ -40,7 +46,6 @@ const SignInContainer = ({ signInStartHandle, error }: any) => {
       loginFields={loginFields}
       handleFieldsChange={handleFieldsChange}
       handleSubmit={handleSubmit}
-      error={error}
       handleClose={handleClose}
       errorForm={errorForm}
     />

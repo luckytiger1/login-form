@@ -16,13 +16,21 @@ import {
   validateName,
 } from '../../utils';
 
-const SignUp = ({
+export interface SignUpProps {
+  fields: any;
+  handleFieldsChange: () => void;
+  handleSubmit: (event: React.SyntheticEvent) => void;
+  errorForm: boolean;
+  handleClose: (event?: React.SyntheticEvent, reason?: string) => void;
+}
+
+const SignUp: React.FC<SignUpProps> = ({
   fields,
   handleFieldsChange,
   handleSubmit,
   errorForm,
   handleClose,
-}: any) => {
+}) => {
   const classes = useStyles(3)();
 
   return (
@@ -40,7 +48,7 @@ const SignUp = ({
               id="firstName"
               aComplete="fname"
               type="text"
-              fields={fields.firstName}
+              value={fields.firstName}
               handleFieldsChange={handleFieldsChange}
               sm={6}
               error={
@@ -53,7 +61,7 @@ const SignUp = ({
               id="lastName"
               aComplete="lname"
               type="text"
-              fields={fields.lastName}
+              value={fields.lastName}
               handleFieldsChange={handleFieldsChange}
               sm={6}
               error={
@@ -66,7 +74,7 @@ const SignUp = ({
               id="email"
               aComplete="email"
               type="text"
-              fields={fields.email}
+              value={fields.email}
               handleFieldsChange={handleFieldsChange}
               error={validateEmail(fields.email) && fields.email.length > 0}
               helperText="Please enter a valid email address."
@@ -76,7 +84,7 @@ const SignUp = ({
               id="password"
               aComplete="current-password"
               type="password"
-              fields={fields.password}
+              value={fields.password}
               handleFieldsChange={handleFieldsChange}
               error={
                 validatePassword(fields.password) && fields.password.length > 0
@@ -93,7 +101,7 @@ const SignUp = ({
                 fields.confirmPassword,
               )}
               helperText="Please make sure your passwords match."
-              fields={fields.confirmPassword}
+              value={fields.confirmPassword}
               handleFieldsChange={handleFieldsChange}
             />
           </Grid>

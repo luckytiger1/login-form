@@ -1,7 +1,20 @@
 import React from 'react';
 import { TextField, Grid } from '@material-ui/core';
 
-const FormInput = ({
+interface FormInputProps {
+  value: string;
+  handleFieldsChange: () => void;
+  aComplete: string;
+  label: string;
+  id: string;
+  type: string;
+  margin?: 'none' | 'dense' | 'normal' | undefined;
+  sm?: any;
+  error: boolean;
+  helperText: string;
+}
+
+const FormInput: React.FC<FormInputProps> = ({
   value,
   handleFieldsChange,
   aComplete,
@@ -12,7 +25,7 @@ const FormInput = ({
   sm,
   error,
   helperText,
-}: any) => {
+}) => {
   return (
     <Grid item xs={12} sm={sm}>
       <TextField

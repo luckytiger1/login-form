@@ -4,7 +4,7 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import { Link } from 'react-router-dom';
 
-const NoAccessPage = () => {
+const NoAccessPage: React.FC = () => {
   return (
     <Container component="main" maxWidth="sm">
       <Typography variant="h3">

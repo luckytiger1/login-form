@@ -2,7 +2,17 @@ import React from 'react';
 import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
 
-const ProfileInput = ({
+interface ProfileInputProps {
+  label: string;
+  value: string;
+  id: string;
+  handleFieldsChange: () => void;
+  error?: any;
+  helperText: string;
+  type?: string;
+}
+
+const ProfileInput: React.FC<ProfileInputProps> = ({
   label,
   value,
   id,
@@ -10,7 +20,7 @@ const ProfileInput = ({
   error,
   helperText,
   type,
-}: any) => {
+}) => {
   return (
     <FormControl variant="outlined">
       <TextField
